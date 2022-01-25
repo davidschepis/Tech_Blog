@@ -1,0 +1,11 @@
+.navbar-brand {
+    font-size: 4rem;
+}
+
+.navbar li a {
+    font-size: 3rem;
+}
+
+.mainSection {
+    background-color: grey;
+}
