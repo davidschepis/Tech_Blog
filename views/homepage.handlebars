@@ -1,0 +1,16 @@
+<div class="row">
+    {{#each data as |blog|}}
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="card m-5 shadow-lg" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{blog.title}}</h5>
+                <p class="card-text">{{blog.content}}</p>
+                <span class="card-text">{{blog.creator}}</span>
+                <span class="card-text">{{blog.date}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-4"></div>
+    {{/each}}
+</div>

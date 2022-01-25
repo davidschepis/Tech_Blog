@@ -6,6 +6,6 @@
     font-size: 3rem;
 }
 
-.mainSection {
+.mainSection, body {
     background-color: grey;
 }
