@@ -1,0 +1,20 @@
+{
+  "name" : "tech_blog",
+  "main" : "server.js",
+  "scripts" : {
+    "start" : "node server.js",
+    "seed" : "node seeds/index.js"
+  },
+  "author" : "David Schepis",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-session-sequelize": "^7.1.2",
+    "dotenv": "^14.3.0",
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2",
+    "express-session": "^1.17.2",
+    "handlebars": "^4.7.7",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.14.0"
+  }
+}
