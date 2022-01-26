@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
         data.map((obj) => {
             obj.date = obj.date.toLocaleDateString("en-US");
         });
-        res.render("homepage", { data });
+        res.render("homepage", { data, logged_in: req.session.logged_in });
     }
     catch (err) {
         console.log(err);
