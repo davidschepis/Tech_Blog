@@ -9,3 +9,11 @@
 .mainSection, body {
     background-color: grey;
 }
+
+#loginForm a {
+    text-decoration: none;
+}
+
+.textHeader {
+    color: white;
+}
