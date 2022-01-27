@@ -1,4 +1,4 @@
-const handleLogin = () => {
+const handleLogin = async () => {
     event.preventDefault();
     const username = document.querySelector('#loginUsername').value.trim();
     const password = document.querySelector('#loginPassword').value.trim();
@@ -8,10 +8,8 @@ const handleLogin = () => {
             body: JSON.stringify({ username, password }),
             headers: { 'Content-Type': 'application/json' },
         });
-
         if (response.ok) {
-            // If successful, redirect the browser to the profile page
-            document.location.replace('/');
+            document.location.replace('/dashboard');
         } else {
             alert(response.statusText);
         }
