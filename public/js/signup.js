@@ -6,8 +6,8 @@ const handleSignup = async () => {
     if (username && password) {
         const data = await fetch("/api/users/", {
             method: 'POST',
-            body: JSON.stringify({username, password}),
-            headers: {'Content-type' : 'application/json'}
+            body: JSON.stringify({ username, password }),
+            headers: { 'Content-type': 'application/json' }
         });
         if (data.ok) {
             document.location.replace('/');
