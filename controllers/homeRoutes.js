@@ -58,5 +58,15 @@ router.get("/dashboard", async (req, res) => {
     }
 });
 
+//render new blog post page
+router.get("/dashboard/new", async (req, res) => {
+    if (!req.session.logged_in) {
+        res.redirect("login");
+    }
+    else {
+        res.render("new");
+    }
+});
+
 
 module.exports = router;

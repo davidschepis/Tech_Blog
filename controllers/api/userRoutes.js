@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Comment} = require('../../models');
+const { BlogPost, Comment, User } = require('../../models');
 
 router.get("/", async (req, res) => {
     const data = await User.findAll();
@@ -58,12 +58,35 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/comments/:id", async (req, res) => {
-    const data = await Comment.findAll({ where: { blogPost_id: req.params.id}});
+    const data = await Comment.findAll({ where: { blogPost_id: req.params.id } });
     if (!data) {
         res.status(400).json({ message: 'Unable to get comments' });
         return;
     }
     res.json(data);
+});
+
+router.post("/new", async (req, res) => {
+    try {
+        const {title, content} = req.body;
+        const date = new Date();
+        const id = req.session.user_id;
+        const creator = await User.findByPk(id);
+        const { dataValues } = creator;
+        const creator_name = dataValues.username;
+        const data = await BlogPost.create({
+            title: title,
+            content: content,
+            date: date,
+            creator_id: id,
+            creator: creator_name
+        });
+        console.log("here3")
+        res.status(200).json(data);
+    }
+    catch (err) {
+        res.status(400).json(err);
+    }
 });
 
 module.exports = router;

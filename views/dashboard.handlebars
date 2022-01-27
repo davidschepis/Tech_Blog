@@ -1,7 +1,14 @@
-{{>newPost}}
+<div class="row">{{>newPost}}</div>
+<div class="row">
+    <div class="col-5"></div>
+    <div class="col-4">
+        <h1>Current Blog Posts!</h1>
+    </div>
+    <div class="col-3"></div>
+</div>
+
 
 <div class="row">
-    <h1>Current Blog Posts!</h1>
     {{#each data as |blog|}}
     <div class="col-4"></div>
     <div class="col-4">
@@ -17,3 +24,5 @@
     <div class="col-4"></div>
     {{/each}}
 </div>
+
+<script src="/js/dashboard.js"></script>
