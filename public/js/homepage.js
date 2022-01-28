@@ -34,9 +34,12 @@ const handleCardClick = async (el) => {
         return;
     }
     const comments = await data.json();
+    if (!comments.length) {
+        return;
+    }
     //add comments under post
     const blogPost = $(`#${el.id}`);
-    let output = `<div class="card" style="width: 18rem;">`;
+    let output = `<div class="card" id="comment${el.id}" style="width: 18rem;">`;
     comments.forEach(e => {
         let date = new Date(e.date);
         output += ` <div class="card-header">${e.creator}, ${date.toLocaleDateString()}</div>`;
@@ -46,6 +49,8 @@ const handleCardClick = async (el) => {
         output += `</li>`;
     });
     output += `</ul></div>`;
+    /////////////
+    
     blogPost.after(output);
 }
 
