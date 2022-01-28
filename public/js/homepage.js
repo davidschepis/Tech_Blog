@@ -9,7 +9,10 @@ const handleNewComment = async (el) => {
         body: JSON.stringify({ id, text }),
     });
     if (data.ok) {
-        alert("ok");
+        console.log("comment added");
+        const comment = await data.json();
+        console.log(comment)
+        $(`#commentblogPost${comment.blog_post_id}`).append(comment.content);
     }
     else {
         console.log("Unable to create new comment");
@@ -46,6 +49,17 @@ else {
 //makes the comments show when a card is clicked
 const handleCardClick = async (el) => {
     const id = extractID(el.id);
+    const blogContent = await fetch(`/blogContent/${id}`);
+    if (!blogContent.ok) {
+        alert("DB Error! Unable to retrieve blog post content");
+        return;
+    }
+    const content = await blogContent.json();
+    const p = $("<p>");
+    p.addClass("card-text");
+    p.text(`${content}`);
+    p.attr("id", `ccontent${id}`);
+    $(`#post${id}`).append(p);
     const data = await fetch(`/api/users/comments/${id}`);
     if (!data.ok) {
         alert("DB Error! Unable to retrieve comments");

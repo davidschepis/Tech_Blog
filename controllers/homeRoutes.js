@@ -68,5 +68,17 @@ router.get("/dashboard/new", async (req, res) => {
     }
 });
 
+router.get("/blogContent/:id", async (req, res) => {
+    try {
+        const blogs = await BlogPost.findAll({where: {id: req.params.id}});
+        const data = blogs.map((blog) => blog.get({ plain: true }));
+        res.status(200).json(data[0].content);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
 
 module.exports = router;
