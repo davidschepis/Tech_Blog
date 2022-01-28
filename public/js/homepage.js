@@ -1,3 +1,21 @@
+//handles a new comment
+const handleNewComment = async (el) => {
+    event.preventDefault();
+    const id = extractID(el.id);
+    const text = document.getElementById("newCommentText" + id).value;
+    const data = await fetch("/api/users/newComment", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, text }),
+    });
+    if (data.ok) {
+        alert("ok");
+    }
+    else {
+        console.log("Unable to create new comment");
+    }
+};
+
 //handles when the logout button is clicked, kills the session and goes to the homepage
 const handleLogoutButton = async () => {
     const data = await fetch("/api/users/logout", {
@@ -50,7 +68,13 @@ const handleCardClick = async (el) => {
     });
     output += `</ul></div>`;
     /////////////
-    
+    output += `<div class="card m-5" id="newCommentBox${id}" style="width: 18rem;">`;
+    output += ` <div class="card-header">Add new comment!</div>`;
+    output += `<form id="commentForm${id}" onsubmit="handleNewComment(this)"><div class="form-group"><label for="newCommentForm${id}">Comment</label>`;
+    output += `<input type="text" class="form-control" id="newCommentText${id}" placeholder="Enter comment"></div>`;
+    output += `<button type="submit" class="btn btn-primary">Submit</button>`;
+    output += `</form></div>`;
+
     blogPost.after(output);
 }
 

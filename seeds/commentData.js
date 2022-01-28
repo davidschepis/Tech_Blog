@@ -6,13 +6,13 @@ const commentData = [
         content: "This is just a test comment",
         creator: "Morty",
         date: date,
-        blogPost_id: 1
+        blog_post_id: 1
     },
     {
         content: "This is just a test comment 2",
         creator: "James",
         date: date,
-        blogPost_id: 2
+        blog_post_id: 2
     }
 ];
 

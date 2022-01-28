@@ -58,7 +58,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/comments/:id", async (req, res) => {
-    const data = await Comment.findAll({ where: { blogPost_id: req.params.id } });
+    const data = await Comment.findAll({ where: { blog_post_id: req.params.id } });
     if (!data) {
         res.status(400).json({ message: 'Unable to get comments' });
         return;
@@ -81,7 +81,27 @@ router.post("/new", async (req, res) => {
             creator_id: id,
             creator: creator_name
         });
-        console.log("here3")
+        res.status(200).json(data);
+    }
+    catch (err) {
+        res.status(400).json(err);
+    }
+});
+
+router.post("/newComment", async (req, res) => {
+    try {
+        const {id, text} = req.body;
+        const date = new Date();
+        const UID = req.session.user_id;    
+        const creator = await User.findByPk(UID);
+        const { dataValues } = creator;
+        const creator_name = dataValues.username;
+        const data = await Comment.create({
+            content: text,
+            creator: creator_name,
+            date: date,
+            blog_post_id: id
+        });
         res.status(200).json(data);
     }
     catch (err) {

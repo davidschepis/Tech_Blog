@@ -23,7 +23,7 @@ Comment.init(
       type: DataTypes.DATE,
       allowNull: false
     },
-    blogPost_id: {
+    blog_post_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
