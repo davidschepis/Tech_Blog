@@ -48,6 +48,7 @@ else {
 
 //makes the comments show when a card is clicked
 const handleCardClick = async (el) => {
+    //////////show blog content
     const id = extractID(el.id);
     const blogContent = await fetch(`/blogContent/${id}`);
     if (!blogContent.ok) {
@@ -60,6 +61,8 @@ const handleCardClick = async (el) => {
     p.text(`Content: ${content}`);
     p.attr("id", `ccontent${id}`);
     $(`#post${id}`).append(p);
+    ///////////
+    ////////////show comments
     const data = await fetch(`/api/users/comments/${id}`);
     if (!data.ok) {
         alert("DB Error! Unable to retrieve comments");
@@ -69,7 +72,7 @@ const handleCardClick = async (el) => {
     if (!comments.length) {
         return;
     }
-    //add comments under post
+    /////////add comments under post
     const blogPost = $(`#${el.id}`);
     let output = `<div class="card" id="comment${el.id}" style="width: 18rem;">`;
     comments.forEach(e => {
