@@ -64,7 +64,7 @@ router.get("/dashboard/new", async (req, res) => {
         res.redirect("login");
     }
     else {
-        res.render("new");
+        res.render("new", {logged_in: req.session.logged_in});
     }
 });
 

@@ -68,12 +68,13 @@ router.get("/comments/:id", async (req, res) => {
 
 router.post("/new", async (req, res) => {
     try {
-        const {title, content} = req.body;
+        const { title, content } = req.body;
         const date = new Date();
         const id = req.session.user_id;
         const creator = await User.findByPk(id);
         const { dataValues } = creator;
         const creator_name = dataValues.username;
+        console.log(title + content + date + id + creator_name)
         const data = await BlogPost.create({
             title: title,
             content: content,
@@ -90,9 +91,9 @@ router.post("/new", async (req, res) => {
 
 router.post("/newComment", async (req, res) => {
     try {
-        const {id, text} = req.body;
+        const { id, text } = req.body;
         const date = new Date();
-        const UID = req.session.user_id;    
+        const UID = req.session.user_id;
         const creator = await User.findByPk(UID);
         const { dataValues } = creator;
         const creator_name = dataValues.username;
@@ -106,6 +107,23 @@ router.post("/newComment", async (req, res) => {
     }
     catch (err) {
         res.status(400).json(err);
+    }
+});
+
+router.delete("/deletePost/:id", async (req, res) => {
+    try {
+        const data = await BlogPost.destroy({
+            where: {
+                id: req.params.id
+            },
+        });
+        if (!data) {
+            res.status(404).json({ message: 'No blogpost found with this id!' });
+            return;
+        }
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
 

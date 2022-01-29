@@ -12,7 +12,8 @@
     {{#each data as |blog|}}
     <div class="col-4"></div>
     <div class="col-4">
-        <div class="card m-5 shadow-lg" id="blogPost{{blog.id}}" style="width: 40rem;">
+        <div class="card m-5 shadow-lg" id="blogPost{{blog.id}}"
+            onclick='handleBlogClick("{{blog.id}}", "{{blog.title}}", "{{blog.content}}")' style="width: 40rem;">
             <div class="card-body">
                 <h5 class="card-title">{{blog.title}}</h5>
                 <p class="card-text">{{blog.content}}</p>
@@ -23,6 +24,38 @@
     </div>
     <div class="col-4"></div>
     {{/each}}
+</div>
+
+<!-- Modal -->
+<div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update or Delete</h4>
+            </div>
+            <div class="modal-body">
+                <div id="postID"></div>
+                <form>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Content</label>
+                        <input type="textarea" class="form-control" id="content">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" onclick="closeModal()">Close</button>
+                <button type="button" class="btn btn-dark" onclick="deletePost()">Delete</button>
+                <button type="button" class="btn btn-dark" onclick="updatePost()">Update</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <script src="/js/dashboard.js"></script>

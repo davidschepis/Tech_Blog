@@ -10,6 +10,9 @@
                 <span class="card-text">{{blog.date}}</span>
             </div>
         </div>
+        <div id="comments{{blog.id}}" style="display: none">
+            {{> comments}}
+        </div>
     </div>
     <div class="col-4"></div>
     {{/each}}
