@@ -4,7 +4,7 @@ const handleNewComment = async (el) => {
     //first check if user is logged in
     const res = await fetch("/api/users/logged_in");
     const response = await res.text();
-    if(response !== "logged_in") {
+    if (response !== "logged_in") {
         document.location.replace("/login");
     }
     const id = extractID(el.id);
@@ -74,7 +74,16 @@ const handleCardClick = async (el) => {
         return;
     }
     const comments = await data.json();
+    //if no comments just output the add comment form
     if (!comments.length) {
+        let output = `<div class="card m-5" id="newCommentBox${id}" style="width: 18rem;">`;
+        output += ` <div class="card-header">Add new comment!</div>`;
+        output += `<form id="commentForm${id}" onsubmit="handleNewComment(this)"><div class="form-group"><label for="newCommentForm${id}">Comment</label>`;
+        output += `<input type="text" class="form-control" id="newCommentText${id}" placeholder="Enter comment"></div>`;
+        output += `<button type="submit" class="btn btn-dark">Submit</button>`;
+        output += `</form></div>`;
+        const blogPost = $(`#${el.id}`);
+        blogPost.after(output);
         return;
     }
     /////////add comments under post
@@ -90,12 +99,12 @@ const handleCardClick = async (el) => {
         output += `</li>`;
     });
     output += `</ul></div>`;
-    /////////////
+    /////////////add new comment box
     output += `<div class="card m-5" id="newCommentBox${id}" style="width: 18rem;">`;
     output += ` <div class="card-header">Add new comment!</div>`;
     output += `<form id="commentForm${id}" onsubmit="handleNewComment(this)"><div class="form-group"><label for="newCommentForm${id}">Comment</label>`;
     output += `<input type="text" class="form-control" id="newCommentText${id}" placeholder="Enter comment"></div>`;
-    output += `<button type="submit" class="btn btn-primary">Submit</button>`;
+    output += `<button type="submit" class="btn btn-dark">Submit</button>`;
     output += `</form></div>`;
 
     blogPost.after(output);

@@ -1,9 +1,9 @@
 const { Comment } = require('../models');
 const date = new Date();
 let date2 = new Date();
-date2 = (date.getDate() - 1);
+date2.setDate(date.getDate() - 1);
 let date3 = new Date();
-date3 = (date.getDate() - 2);
+date3.setDate(date.getDate() - 2);
 
 const commentData = [
     {
