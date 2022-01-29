@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { BlogPost } = require("../models");
+const withAuth = require('../utils/auth');
 
 //returns all blog posts after formatting
 router.get("/", async (req, res) => {
@@ -38,34 +39,24 @@ router.get("/signup", (req, res) => {
 });
 
 //if the user is logged in go to the dashboard, otherwise login page
-router.get("/dashboard", async (req, res) => {
-    if (!req.session.logged_in) {
-        res.redirect("login");
+router.get("/dashboard", withAuth, async (req, res) => {
+    try {
+        const blogs = await BlogPost.findAll({ where: { creator_id: req.session.user_id } });
+        const data = blogs.map((blog) => blog.get({ plain: true }));
+        data.map((obj) => {
+            obj.date = obj.date.toLocaleDateString("en-US");
+        });
+        res.render("dashboard", { data, logged_in: req.session.logged_in });
     }
-    else {
-        try {
-            const blogs = await BlogPost.findAll({ where: { creator_id: req.session.user_id } });
-            const data = blogs.map((blog) => blog.get({ plain: true }));
-            data.map((obj) => {
-                obj.date = obj.date.toLocaleDateString("en-US");
-            });
-            res.render("dashboard", { data, logged_in: req.session.logged_in });
-        }
-        catch (err) {
-            console.log(err);
-            res.status(500).json(err);
-        }
+    catch (err) {
+        console.log(err);
+        res.status(500).json(err);
     }
 });
 
 //render new blog post page
-router.get("/dashboard/new", async (req, res) => {
-    if (!req.session.logged_in) {
-        res.redirect("login");
-    }
-    else {
-        res.render("new", { logged_in: req.session.logged_in });
-    }
+router.get("/dashboard/new", withAuth, async (req, res) => {
+    res.render("new", { logged_in: req.session.logged_in });
 });
 
 //get blogpost based off id

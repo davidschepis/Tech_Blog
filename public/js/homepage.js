@@ -1,6 +1,12 @@
 //handles a new comment
 const handleNewComment = async (el) => {
     event.preventDefault();
+    //first check if user is logged in
+    const res = await fetch("/api/users/logged_in");
+    const response = await res.text();
+    if(response !== "logged_in") {
+        document.location.replace("/login");
+    }
     const id = extractID(el.id);
     const text = document.getElementById("newCommentText" + id).value;
     const data = await fetch("/api/users/newComment", {
@@ -11,7 +17,6 @@ const handleNewComment = async (el) => {
     if (data.ok) {
         console.log("comment added");
         const comment = await data.json();
-        console.log(comment)
         $(`#commentblogPost${comment.blog_post_id}`).append(comment.content);
     }
     else {

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { BlogPost, Comment, User } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 //get all users
 router.get("/", async (req, res) => {
@@ -71,7 +72,7 @@ router.get("/comments/:id", async (req, res) => {
 });
 
 //POST to /api/users/new, creates a new blog post
-router.post("/new", async (req, res) => {
+router.post("/new", withAuth, async (req, res) => {
     try {
         const { title, content } = req.body;
         const date = new Date();
@@ -95,7 +96,7 @@ router.post("/new", async (req, res) => {
 });
 
 //POST to /api/users/newComment, creates a new comment
-router.post("/newComment", async (req, res) => {
+router.post("/newComment", withAuth, async (req, res) => {
     try {
         const { id, text } = req.body;
         const date = new Date();
@@ -117,7 +118,7 @@ router.post("/newComment", async (req, res) => {
 });
 
 //DELETE to /api/users/deletePost/id, deletes a post based off the id
-router.delete("/deletePost/:id", async (req, res) => {
+router.delete("/deletePost/:id", withAuth, async (req, res) => {
     try {
         const data = await BlogPost.destroy({
             where: {
@@ -135,7 +136,7 @@ router.delete("/deletePost/:id", async (req, res) => {
 });
 
 //PUT to /api/users/update/id, updates a post based off id
-router.put("/update/:id", async (req, res) => {
+router.put("/update/:id", withAuth, async (req, res) => {
     try {
         const date = new Date();
         const data = await BlogPost.update(
@@ -149,6 +150,16 @@ router.put("/update/:id", async (req, res) => {
         res.status(200).json(data);
     } catch (err) {
         res.status(500).json(err);
+    }
+});
+
+//GET to /api/users/logged_in returns true if logged in
+router.get("/logged_in", async (req, res) => {
+    if (req.session.logged_in) {
+        res.send("logged_in");
+    }
+    else {
+        res.send("chabs");
     }
 });
 
