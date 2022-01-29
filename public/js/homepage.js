@@ -79,7 +79,8 @@ const handleCardClick = async (el) => {
     }
     /////////add comments under post
     const blogPost = $(`#${el.id}`);
-    let output = `<div class="card" id="comment${el.id}" style="width: 18rem;">`;
+    let output = ``
+    output += `<div class="card text-white bg-dark" id="comment${el.id}" style="width: 18rem;">`;
     comments.forEach(e => {
         let date = new Date(e.date);
         output += ` <div class="card-header">${e.creator}, ${date.toLocaleDateString()}</div>`;
