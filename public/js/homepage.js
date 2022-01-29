@@ -57,7 +57,7 @@ const handleCardClick = async (el) => {
     const content = await blogContent.json();
     const p = $("<p>");
     p.addClass("card-text");
-    p.text(`${content}`);
+    p.text(`Content: ${content}`);
     p.attr("id", `ccontent${id}`);
     $(`#post${id}`).append(p);
     const data = await fetch(`/api/users/comments/${id}`);

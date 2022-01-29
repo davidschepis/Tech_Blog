@@ -44,7 +44,7 @@ router.get("/dashboard", async (req, res) => {
     }
     else {
         try {
-            const blogs = await BlogPost.findAll({where: {creator_id: req.session.user_id}});
+            const blogs = await BlogPost.findAll({ where: { creator_id: req.session.user_id } });
             const data = blogs.map((blog) => blog.get({ plain: true }));
             data.map((obj) => {
                 obj.date = obj.date.toLocaleDateString("en-US");
@@ -64,13 +64,14 @@ router.get("/dashboard/new", async (req, res) => {
         res.redirect("login");
     }
     else {
-        res.render("new", {logged_in: req.session.logged_in});
+        res.render("new", { logged_in: req.session.logged_in });
     }
 });
 
+//get blogpost based off id
 router.get("/blogContent/:id", async (req, res) => {
     try {
-        const blogs = await BlogPost.findAll({where: {id: req.params.id}});
+        const blogs = await BlogPost.findAll({ where: { id: req.params.id } });
         const data = blogs.map((blog) => blog.get({ plain: true }));
         res.status(200).json(data[0].content);
     }

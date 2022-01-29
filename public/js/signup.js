@@ -1,3 +1,4 @@
+//handles signup
 const handleSignup = async () => {
     event.preventDefault();
     const username = document.querySelector('#signupUsername').value.trim();

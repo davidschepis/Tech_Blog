@@ -1,7 +1,9 @@
+//Handles new blog button click
 const newBlogPost = () => {
     document.location.replace('/dashboard/new');
 };
 
+//show modal when clicking a blog post
 const handleBlogClick = (id, title, content) => {
     $('#title').val(title);
     $('#content').val(content);
@@ -9,10 +11,12 @@ const handleBlogClick = (id, title, content) => {
     $('#updateModal').modal('show');
 };
 
+//handles close button
 const closeModal = () => {
     $('#updateModal').modal('hide');
 }
 
+//delete button
 const deletePost = async () => {
     let id = $('#postID').text();
     id = extractID(id);
@@ -26,6 +30,7 @@ const deletePost = async () => {
     }
 };
 
+//update button
 const updatePost = async () => {
     const title = $('#title').val();
     const content = $('#content').val();

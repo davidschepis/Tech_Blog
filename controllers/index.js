@@ -1,3 +1,4 @@
+//routes index
 const router = require('express').Router();
 
 const homepage = require("./homeRoutes.js");

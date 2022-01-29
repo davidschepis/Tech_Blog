@@ -1,3 +1,4 @@
+//make new post
 const handleNewPost = async () => {
     event.preventDefault();
     const title = document.querySelector('#title').value.trim();

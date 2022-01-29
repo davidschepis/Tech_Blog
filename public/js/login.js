@@ -1,3 +1,4 @@
+//logs user in
 const handleLogin = async () => {
     event.preventDefault();
     const username = document.querySelector('#loginUsername').value.trim();
@@ -11,7 +12,7 @@ const handleLogin = async () => {
         if (response.ok) {
             document.location.replace('/dashboard');
         } else {
-            alert(response.statusText);
+            alert("Unable to login");
         }
     }
 }

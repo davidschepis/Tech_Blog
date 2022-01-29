@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { BlogPost, Comment, User } = require('../../models');
 
+//get all users
 router.get("/", async (req, res) => {
     const data = await User.findAll();
     res.json(data);
@@ -21,6 +22,7 @@ router.post("/", async (req, res) => {
     }
 });
 
+//POST to /api/users/logout, destroys the session
 router.post("/logout", (req, res) => {
     if (req.session.logged_in) {
         req.session.destroy(() => {
@@ -32,6 +34,7 @@ router.post("/logout", (req, res) => {
     }
 });
 
+//POST to /api/users/login, sets the session logged_in and user_id if credentials match
 router.post("/login", async (req, res) => {
     try {
         const userData = await User.findOne({ where: { username: req.body.username } });
@@ -57,6 +60,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
+//GET to /api/users/comments/id, get the comment associated with the id
 router.get("/comments/:id", async (req, res) => {
     const data = await Comment.findAll({ where: { blog_post_id: req.params.id } });
     if (!data) {
@@ -66,6 +70,7 @@ router.get("/comments/:id", async (req, res) => {
     res.json(data);
 });
 
+//POST to /api/users/new, creates a new blog post
 router.post("/new", async (req, res) => {
     try {
         const { title, content } = req.body;
@@ -89,6 +94,7 @@ router.post("/new", async (req, res) => {
     }
 });
 
+//POST to /api/users/newComment, creates a new comment
 router.post("/newComment", async (req, res) => {
     try {
         const { id, text } = req.body;
@@ -110,6 +116,7 @@ router.post("/newComment", async (req, res) => {
     }
 });
 
+//DELETE to /api/users/deletePost/id, deletes a post based off the id
 router.delete("/deletePost/:id", async (req, res) => {
     try {
         const data = await BlogPost.destroy({
@@ -127,12 +134,13 @@ router.delete("/deletePost/:id", async (req, res) => {
     }
 });
 
+//PUT to /api/users/update/id, updates a post based off id
 router.put("/update/:id", async (req, res) => {
     try {
         const date = new Date();
         const data = await BlogPost.update(
-            {title: req.body.title, content: req.body.content, date: date},
-            {where: {id: req.params.id}}
+            { title: req.body.title, content: req.body.content, date: date },
+            { where: { id: req.params.id } }
         );
         if (!data) {
             res.status(404).json({ message: 'Unable to update blogpost on id' });

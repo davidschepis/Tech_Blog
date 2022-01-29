@@ -4,10 +4,9 @@
     <div class="col-4">
         <div class="card m-5 shadow-lg" id="blogPost{{blog.id}}" style="width: 40rem;" onclick="handleCardClick(this)">
             <div class="card-body" id="post{{blog.id}}">
-                <h5 class="card-title">{{blog.title}}</h5>
-                {{!-- <p class="card-text">{{blog.content}}</p> --}}
-                <span class="card-text">{{blog.creator}}</span>
-                <span class="card-text">{{blog.date}}</span>
+                <h5 class="card-title">Title: {{blog.title}}</h5>
+                <span class="card-text"> <strong>Created By: </strong>{{blog.creator}}</span>
+                <span class="card-text"><strong>Date: </strong>{{blog.date}}</span>
             </div>
         </div>
         <div id="comments{{blog.id}}" style="display: none">

@@ -1,3 +1,4 @@
+//establish sequelize connection, use .env for values
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
