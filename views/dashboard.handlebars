@@ -15,10 +15,10 @@
         <div class="card m-5 shadow-lg" id="blogPost{{blog.id}}"
             onclick='handleBlogClick("{{blog.id}}", "{{blog.title}}", "{{blog.content}}")' style="width: 40rem;">
             <div class="card-body">
-                <h5 class="card-title">{{blog.title}}</h5>
-                <p class="card-text">{{blog.content}}</p>
-                <span class="card-text">{{blog.creator}}</span>
-                <span class="card-text">{{blog.date}}</span>
+                <h5 class="card-title">Title: {{blog.title}}</h5>
+                <p class="card-text">Content: {{blog.content}}</p>
+                <span class="card-text">Created by: {{blog.creator}}</span>
+                <span class="card-text">Date: {{blog.date}}</span>
             </div>
         </div>
     </div>

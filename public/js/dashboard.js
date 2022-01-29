@@ -26,9 +26,20 @@ const deletePost = async () => {
     }
 };
 
-const updatePost = () => {
+const updatePost = async () => {
     const title = $('#title').val();
     const content = $('#content').val();
-    console.log(title + content);
+    let id = $('#postID').text();
+    id = extractID(id);
+    const data = await fetch(`/api/users/update/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, content })
+    });
+    if (data.ok) {
+        document.location.replace('/dashboard');
+    } else {
+        alert('Failed to update post');
+    }
 };
 

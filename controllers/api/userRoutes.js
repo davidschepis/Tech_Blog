@@ -127,4 +127,22 @@ router.delete("/deletePost/:id", async (req, res) => {
     }
 });
 
+router.put("/update/:id", async (req, res) => {
+    try {
+        const date = new Date();
+        const data = await BlogPost.update(
+            {title: req.body.title, content: req.body.content, date: date},
+            {where: {id: req.params.id}}
+        );
+        if (!data) {
+            res.status(404).json({ message: 'Unable to update blogpost on id' });
+            return;
+        }
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
 module.exports = router;
