@@ -17,7 +17,14 @@ const handleNewComment = async (el) => {
     if (data.ok) {
         console.log("comment added");
         const comment = await data.json();
-        $(`#commentblogPost${comment.blog_post_id}`).append(comment.content);
+        let date = new Date(comment.date);
+        let output = `<div class="card-header">${comment.creator}, ${date.toLocaleDateString()}</div>`;
+        output += `<ul class="list-group list-group-flush">`;
+        output += `<li class="list-group-item">`
+        output += `${comment.content}`;
+        output += `</li>`;
+        output += `</ul></div>`;
+        $(`#commentblogPost${comment.blog_post_id}`).append(output);
     }
     else {
         console.log("Unable to create new comment");
@@ -77,8 +84,8 @@ const handleCardClick = async (el) => {
     //if no comments just output the add comment form
     if (!comments.length) {
         let output = `<div class="card m-5" id="newCommentBox${id}" style="width: 18rem;">`;
-        output += ` <div class="card-header">Add new comment!</div>`;
-        output += `<form id="commentForm${id}" onsubmit="handleNewComment(this)"><div class="form-group"><label for="newCommentForm${id}">Comment</label>`;
+        output += ` <div class="card-header text-white bg-dark">Add new comment!</div>`;
+        output += `<form id="commentForm${id}" onsubmit="handleNewComment(this)"><div class="form-group"><label for="newCommentForm${id}">Comment:</label>`;
         output += `<input type="text" class="form-control" id="newCommentText${id}" placeholder="Enter comment"></div>`;
         output += `<button type="submit" class="btn btn-dark">Submit</button>`;
         output += `</form></div>`;
@@ -101,8 +108,8 @@ const handleCardClick = async (el) => {
     output += `</ul></div>`;
     /////////////add new comment box
     output += `<div class="card m-5" id="newCommentBox${id}" style="width: 18rem;">`;
-    output += ` <div class="card-header">Add new comment!</div>`;
-    output += `<form id="commentForm${id}" onsubmit="handleNewComment(this)"><div class="form-group"><label for="newCommentForm${id}">Comment</label>`;
+    output += ` <div class="card-header text-white bg-dark">Add new comment!</div>`;
+    output += `<form id="commentForm${id}" onsubmit="handleNewComment(this)"><div class="form-group"><label for="newCommentForm${id}">Comment:</label>`;
     output += `<input type="text" class="form-control" id="newCommentText${id}" placeholder="Enter comment"></div>`;
     output += `<button type="submit" class="btn btn-dark">Submit</button>`;
     output += `</form></div>`;
